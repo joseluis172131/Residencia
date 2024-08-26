@@ -32,8 +32,8 @@ class Oficina_AdminController extends Controller
         ]);
 
         $oficina = new Oficina_AdminModel([
-            'Nombre' => $request->txtnombre,
-            'Cantidad' => $request->txtcantidad,
+            'nombre' => $request->txtnombre,
+            'cantidad' => $request->txtcantidad,
             'codigo' => $request->txtcodigo,
             'disponibilidad'=> $request->txtestatus,
             'sub_area' => $request->txtsubarea,
@@ -95,8 +95,8 @@ class Oficina_AdminController extends Controller
         try {
             // Buscar la herramienta por ID y actualizar sus campos
             $oficina = Oficina_AdminModel::findOrFail($id);
-            $oficina->Nombre = $request->input('txtnombre');
-            $oficina->Cantidad = $request->input('txtcantidad');
+            $oficina->nombreherramienta = $request->input('txtnombre');
+            $oficina->cantidad = $request->input('txtcantidad');
             $oficina->codigo = $request->input('txtcodigo');
             $oficina->disponibilidad = $request->input('txtestatus');
             $oficina->sub_area = $request->input('txtsubarea');

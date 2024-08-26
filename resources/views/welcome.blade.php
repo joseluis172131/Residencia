@@ -165,8 +165,51 @@
     <div class="container table-container" style="position: relative">
         <div class="table-responsive">
             <!-- Button trigger modal for adding new tool -->
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">Añadir
-                Herramienta</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <button class="btn btn-success btn-igualado" data-bs-toggle="modal" data-bs-target="#addModal">Añadir
+                    Herramienta
+                </button>
+            
+                <form action="{{ route('infoAlmacen') }}" method="GET">
+                    @csrf
+                    <button type="submit" class="btn btn-igualado btn-elegant">
+                        <i class="fas fa-file-alt"></i> Generar Reporte
+                    </button>
+                </form>
+            </div>
+            
+            <style>
+                .btn-igualado {
+                    width: 200px; /* Asegura que ambos botones tengan el mismo ancho */
+                    padding: 10px 20px;
+                    text-align: center;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    border-radius: 12px;
+                    transition-duration: 0.4s;
+                }
+            
+                .btn-elegant {
+                    background-color: gray; /* Gris elegante para el botón de reporte */
+                    color: black;
+                    border: none;
+                }
+            
+                .btn-elegant:hover {
+                    background-color: white;
+                    color: #4CAF50;
+                    border: 2px solid #4CAF50;
+                }
+            
+                .btn-elegant i {
+                    margin-right: 8px; /* Espacio entre el ícono y el texto */
+                }
+            </style>
+            
+            
+
             <table class="table table-striped-columns" id="myTable">
                 <thead class="bg-primary text-white">
                     <tr>

@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Registro</title>
     <style>
+        /* Estilos similares al formulario de login */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #001f3f;
@@ -14,7 +15,7 @@
             height: 100vh;
             margin: 0;
         }
-        .login-container {
+        .register-container {
             background-color: #fff;
             padding: 2rem;
             border-radius: 10px;
@@ -22,7 +23,7 @@
             width: 100%;
             max-width: 400px;
         }
-        .login-container h2 {
+        .register-container h2 {
             margin-bottom: 1.5rem;
             color: #333;
         }
@@ -45,31 +46,6 @@
             border-color: #007bff;
             outline: none;
         }
-        .login-button {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .login-button:hover {
-            background-color: #0056b3;
-        }
-        .login-footer {
-            text-align: center;
-            margin-top: 1rem;
-        }
-        .login-footer a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .login-footer a:hover {
-            text-decoration: underline;
-        }
         .register-button {
             width: 100%;
             padding: 0.75rem;
@@ -79,7 +55,6 @@
             border-radius: 5px;
             font-size: 1rem;
             cursor: pointer;
-            margin-top: 1rem;
             transition: background-color 0.3s;
         }
         .register-button:hover {
@@ -88,10 +63,17 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Iniciar Sesión</h2>
-        <form method="POST" action="{{ route('login') }}">
+    <div class="register-container">
+        <h2>Registrar Usuario</h2>
+        @if(session('success'))
+            <p style="color: green;">{{ session('success') }}</p>
+        @endif
+        <form method="POST" action="{{ route('registo.create') }}">
             @csrf
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" name="name" id="name" required>
+            </div>
             <div class="form-group">
                 <label for="email">Correo:</label>
                 <input type="email" name="email" id="email" required>
@@ -100,12 +82,12 @@
                 <label for="password">Contraseña:</label>
                 <input type="password" name="password" id="password" required>
             </div>
-            <button type="submit" class="login-button">Ingresar</button>
+            <div class="form-group">
+                <label for="password_confirmation">Confirmar Contraseña:</label>
+                <input type="password" name="password_confirmation" id="password_confirmation" required>
+            </div>
+            <button type="submit" class="register-button">Registrar</button>
         </form>
-        <div class="login-footer">
-            <p><a href="#">¿Olvidó su contraseña?</a></p>
-            <button class="register-button" onclick="window.location.href='{{ route('registroVer') }}'">Registrar</button>
-        </div>
     </div>
 </body>
 </html>

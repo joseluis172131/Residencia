@@ -156,8 +156,49 @@
     <div class="container table-container" style="position: relative">
         <div class="table-responsive">
             <!-- Button trigger modal for adding new tool -->
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">Añadir
-                Herramienta</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <button class="btn btn-success btn-igualado" data-bs-toggle="modal" data-bs-target="#addModal">Añadir
+                    Herramienta
+                </button>
+            
+                <form action="{{ route('infoIngenieria') }}" method="GET">
+                    @csrf
+                    <button type="submit" class="btn btn-igualado btn-elegant">
+                        <i class="fas fa-file-alt"></i> Generar Reporte
+                    </button>
+                </form>
+            </div>
+            
+            <style>
+                .btn-igualado {
+                    width: 200px; /* Asegura que ambos botones tengan el mismo ancho */
+                    padding: 10px 20px;
+                    text-align: center;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    border-radius: 12px;
+                    transition-duration: 0.4s;
+                }
+            
+                .btn-elegant {
+                    background-color: gray; /* Gris elegante para el botón de reporte */
+                    color: black;
+                    border: none;
+                }
+            
+                .btn-elegant:hover {
+                    background-color: white;
+                    color: #4CAF50;
+                    border: 2px solid #4CAF50;
+                }
+            
+                .btn-elegant i {
+                    margin-right: 8px; /* Espacio entre el ícono y el texto */
+                }
+            </style>
+
                 <table class="table table-striped-columns" id="myTable">
                 <thead class="bg-primary text-white">
                     <tr>
@@ -173,8 +214,8 @@
                     @foreach ($datos as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td class="searchItem">{{ $item->Nombre }}</td>
-                            <td>{{ $item->Cantidad }}</td>
+                            <td class="searchItem">{{ $item->nombreherramienta }}</td>
+                            <td>{{ $item->cantidad }}</td>
                             <td>{{ $item->codigo }}</td>
                             <td>{{ $item->disponibilidad }}</td>
                             <td>{{ $item->sub_area }}</td>
@@ -218,7 +259,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="verModalLabel{{ $item->id }}">{{ $item->Nombre}}</h1>
+                                        <h1 class="modal-title fs-5" id="verModalLabel{{ $item->id }}">{{ $item->nombreherramienta}}</h1>
                                         <i class="fa-solid fa-eye-low-vision"></i>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
@@ -267,14 +308,14 @@
                                                     class="form-label">Nombre</label>
                                                 <input type="text" class="form-control"
                                                     id="nombreHerramienta{{ $item->id }}" name="txtnombre"
-                                                    value="{{ $item->Nombre }}" required>
+                                                    value="{{ $item->nombreherramienta }}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="cantidad{{ $item->id }}"
                                                     class="form-label">Cantidad</label>
                                                 <input type="text" class="form-control"
                                                     id="cantidad{{ $item->id }}" name="txtcantidad"
-                                                    value="{{ $item->Cantidad }}" required>
+                                                    value="{{ $item->cantidad }}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="codigo{{ $item->id }}"

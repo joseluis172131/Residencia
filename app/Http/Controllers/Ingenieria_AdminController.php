@@ -33,8 +33,8 @@ class Ingenieria_AdminController extends Controller
         ]);
 
         $ingenieria = new Ingenieria_AdminModel([
-            'Nombre' => $request->txtnombre,
-            'Cantidad' => $request->txtcantidad,
+            'nombre' => $request->txtnombre,
+            'cantidad' => $request->txtcantidad,
             'codigo' => $request->txtcodigo,
             'disponibilidad'=> $request->txtestatus,
             'sub_area' => $request->txtsubarea,
@@ -95,8 +95,8 @@ class Ingenieria_AdminController extends Controller
         try {
             // Buscar la herramienta por ID y actualizar sus campos
             $ingenieria = Ingenieria_AdminModel::findOrFail($id);
-            $ingenieria->Nombre = $request->input('txtnombre');
-            $ingenieria->Cantidad = $request->input('txtcantidad');
+            $ingenieria->nombreherramienta = $request->input('txtnombre');
+            $ingenieria->cantidad = $request->input('txtcantidad');
             $ingenieria->codigo = $request->input('txtcodigo');
             $ingenieria->disponibilidad = $request->input('txtestatus');
             $ingenieria->sub_area = $request->input('txtsubarea');

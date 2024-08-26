@@ -32,8 +32,8 @@ class Almacen_AdminController extends Controller
         ]);
 
         $almacen = new Almacen_AdminModel([
-            'Nombre' => $request->input('txtnombre'),
-            'Cantidad' => $request->input('txtcantidad'),
+            'nombre' => $request->input('txtnombre'),
+            'cantidad' => $request->input('txtcantidad'),
             'codigo' => $request->input('txtcodigo'),
             'disponibilidad' => $request->input('txtestatus'),
             'sub_area' => $request->input('txtsubarea'),
@@ -87,8 +87,8 @@ class Almacen_AdminController extends Controller
 
         try {
             $almacen = Almacen_AdminModel::findOrFail($id);
-            $almacen->Nombre = $request->input('txtnombre');
-            $almacen->Cantidad = $request->input('txtcantidad');
+            $almacen->nombreherramienta = $request->input('txtnombre');
+            $almacen->cantidad = $request->input('txtcantidad');
             $almacen->codigo = $request->input('txtcodigo');
             $almacen->disponibilidad = $request->input('txtestatus');
             $almacen->sub_area = $request->input('txtsubarea');

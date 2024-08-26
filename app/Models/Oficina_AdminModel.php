@@ -9,8 +9,8 @@ class Oficina_AdminModel extends Model
 {
     protected $table = 'oficina_administrativa'; 
     protected $fillable = [
-        'Nombre',
-        'Cantidad',
+        'nombreherramienta',
+        'cantidad',
         'codigo',
         'disponibilidad',
         'imagen', 
