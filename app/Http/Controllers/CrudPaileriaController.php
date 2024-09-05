@@ -16,16 +16,19 @@ class CrudPaileriaController extends Controller
 
     public function create(Request $request)
     {
-        // Validar la solicitud
+        // Validar la solicitud con un mensaje de error personalizado para el campo 'codigo'
         $request->validate([
             'txtnombre' => 'required|string|max:255',
             'txtcantidad' => 'required|integer',
-            'txtcodigo' => 'required|string|max:255',
+            'txtcodigo' => 'required|string|max:255|unique:paileria,codigo',
             'txtestatus' => 'required|string|max:255',
             'txtsubarea' => 'required|string|max:255',
-            'txtimagen' => 'nullable|image|max:2048'  // Validación para imágenes si es necesario
+            'txtnumeroParte' => 'nullable|string|max:50',
+            'txtimagen' => 'nullable|image|max:2048'
+        ], [
+            'txtcodigo.unique' => 'El código ya existe por favor, ingrese un código diferente.'
         ]);
-
+    
         // Crear una nueva instancia del modelo y guardar los datos
         $herramienta = new Herramienta([
             'nombreherramienta' => $request->txtnombre,
@@ -33,22 +36,22 @@ class CrudPaileriaController extends Controller
             'codigo' => $request->txtcodigo,
             'disponibilidad'=> $request->txtestatus,
             'sub_area' => $request->txtsubarea,
-            'imagen' => $request->hasFile('txtimagen') ? $request->file('txtimagen')->store('images') : null, // Manejo de archivo si es necesario
+            'numeroParte' => $request->input('txtnumeroParte'),
+            'imagen' => $request->hasFile('txtimagen') ? $request->file('txtimagen')->store('images') : null,
         ]);
-
+    
         if ($request->hasFile('txtimagen')) {
             $imagePath = $request->file('txtimagen')->store('images', 'public');
             $herramienta->imagen = $imagePath;
         }
-
-
-        if ($herramienta->save()) {
-            return back()->with('correcto', 'Producto registrado correctamente');
-        } else {
-            return back()->with('incorrecto', 'Error al registrar');
-        }
+    
+        // Guardar el registro
+        $herramienta->save();
+    
+        // Retornar con un mensaje de éxito
+        return back()->with('correcto', 'Producto registrado correctamente');
     }
-
+    
     public function update(Request $request, $id)
     {
         // Validar la solicitud
@@ -58,6 +61,7 @@ class CrudPaileriaController extends Controller
             'txtcodigo' => 'required|string|max:255',
             'txtestatus' => 'required|string|max:255',
             'txtsubarea' => 'required|string|max:255',
+            'txtnumeroParte' => 'nullable|string|max:50',
             'txtimagen' => 'nullable|image|max:2048' // Validación para imágenes si es necesario
         ]);
     
@@ -69,6 +73,7 @@ class CrudPaileriaController extends Controller
             $herramienta->codigo = $request->input('txtcodigo');
             $herramienta->disponibilidad = $request->input('txtestatus');
             $herramienta->sub_area = $request->input('txtsubarea');
+            $herramienta->numeroParte = $request->input('txtnumeroParte');
     
             // Comprobar si se subió una nueva imagen
             if ($request->hasFile('txtimagen')) {

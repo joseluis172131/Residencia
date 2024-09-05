@@ -23,75 +23,55 @@ class Ingenieria_AdminController extends Controller
      */
     public function create(Request $request)
     {
+        // Validar la solicitud
         $request->validate([
             'txtnombre' => 'required|string|max:255',
             'txtcantidad' => 'required|integer',
-            'txtcodigo' => 'required|string|max:255',
+            'txtcodigo' => 'required|string|max:255|unique:ingenieria,codigo',
             'txtestatus' => 'required|string|max:255',
             'txtsubarea' => 'required|string|max:255',
-            'txtimagen' => 'nullable|image|max:2048' 
+            'txtnumeroParte' => 'nullable|string|max:50',
+            'txtimagen' => 'nullable|image|max:2048'
+        ], [
+            'txtcodigo.unique' => 'El código ya existe por favor, ingrese un código diferente.'
         ]);
-
+    
+        // Crear una nueva instancia del modelo y guardar los datos
         $ingenieria = new Ingenieria_AdminModel([
-            'nombre' => $request->txtnombre,
+            'nombreherramienta' => $request->txtnombre,
             'cantidad' => $request->txtcantidad,
             'codigo' => $request->txtcodigo,
             'disponibilidad'=> $request->txtestatus,
             'sub_area' => $request->txtsubarea,
-            'imagen' => $request->hasFile('txtimagen') ? $request->file('txtimagen')->store('images') : null, // Manejo de archivo si es necesario
+            'numeroParte' => $request->input('txtnumeroParte'),
+            'imagen' => $request->hasFile('txtimagen') ? $request->file('txtimagen')->store('images') : null,
         ]);
-
+    
         if ($request->hasFile('txtimagen')) {
             $imagePath = $request->file('txtimagen')->store('images', 'public');
             $ingenieria->imagen = $imagePath;
         }
-
-
-        if ($ingenieria->save()) {
-            return back()->with('correcto', 'Producto registrado correctamente');
-        } else {
-            return back()->with('incorrecto', 'Error al registrar');
-        }
+    
+        // Guardar el registro
+        $ingenieria->save();
+    
+        // Retornar con un mensaje de éxito
+        return back()->with('correcto', 'Producto registrado correctamente');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
+        // Validar la solicitud
         $request->validate([
             'txtnombre' => 'required|string|max:255',
             'txtcantidad' => 'required|integer',
             'txtcodigo' => 'required|string|max:255',
             'txtestatus' => 'required|string|max:255',
             'txtsubarea' => 'required|string|max:255',
-            'txtimagen' => 'nullable|image|max:2048'
+            'txtnumeroParte' => 'nullable|string|max:50',
+            'txtimagen' => 'nullable|image|max:2048' // Validación para imágenes si es necesario
         ]);
-
+    
         try {
             // Buscar la herramienta por ID y actualizar sus campos
             $ingenieria = Ingenieria_AdminModel::findOrFail($id);
@@ -100,6 +80,7 @@ class Ingenieria_AdminController extends Controller
             $ingenieria->codigo = $request->input('txtcodigo');
             $ingenieria->disponibilidad = $request->input('txtestatus');
             $ingenieria->sub_area = $request->input('txtsubarea');
+            $ingenieria->numeroParte = $request->input('txtnumeroParte');
     
             // Comprobar si se subió una nueva imagen
             if ($request->hasFile('txtimagen')) {
@@ -118,13 +99,8 @@ class Ingenieria_AdminController extends Controller
             // Manejo de excepciones
             return back()->with('incorrecto', 'Error al modificar');
         }
-
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+        public function destroy($id)
     {
         try {
             // Encontrar la herramienta por ID y eliminarla
@@ -138,4 +114,5 @@ class Ingenieria_AdminController extends Controller
             return back()->with('incorrecto', 'Error al eliminar el producto');
         }
     }
+
 }

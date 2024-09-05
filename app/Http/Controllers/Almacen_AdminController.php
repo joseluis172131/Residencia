@@ -25,26 +25,29 @@ class Almacen_AdminController extends Controller
         $request->validate([
             'txtnombre' => 'required|string|max:255',
             'txtcantidad' => 'required|integer',
-            'txtcodigo' => 'required|string|max:255',
+            'txtcodigo' => 'required|string|max:255|unique:almacen,codigo',
             'txtestatus' => 'required|string|max:255',
             'txtsubarea' => 'required|string|max:255',
+            'txtnumeroParte' => 'nullable|string|max:50',
             'txtimagen' => 'nullable|image|max:2048'
+        ], [
+            'txtcodigo.unique' => 'El código ya existe por favor, ingrese un código diferente.'
         ]);
 
         $almacen = new Almacen_AdminModel([
-            'nombre' => $request->input('txtnombre'),
+            'nombreherramienta' => $request->input('txtnombre'),
             'cantidad' => $request->input('txtcantidad'),
             'codigo' => $request->input('txtcodigo'),
             'disponibilidad' => $request->input('txtestatus'),
             'sub_area' => $request->input('txtsubarea'),
+            'numeroParte' => $request->input('txtnumeroParte'),
             'imagen' => $request->hasFile('txtimagen') ? $request->file('txtimagen')->store('images', 'public') : null,
         ]);
 
-        if ($almacen->save()) {
-            return back()->with('correcto', 'Producto registrado correctamente');
-        } else {
-            return back()->with('incorrecto', 'Error al registrar');
-        }
+        $almacen->save();
+    
+        // Retornar con un mensaje de éxito
+        return back()->with('correcto', 'Producto registrado correctamente');
     }
 
     /**
@@ -82,6 +85,7 @@ class Almacen_AdminController extends Controller
             'txtcodigo' => 'required|string|max:255',
             'txtestatus' => 'required|string|max:255',
             'txtsubarea' => 'required|string|max:255',
+            'txtnumeroParte' => 'nullable|string|max:50',
             'txtimagen' => 'nullable|image|max:2048'
         ]);
 
@@ -92,6 +96,7 @@ class Almacen_AdminController extends Controller
             $almacen->codigo = $request->input('txtcodigo');
             $almacen->disponibilidad = $request->input('txtestatus');
             $almacen->sub_area = $request->input('txtsubarea');
+            $almacen->numeroParte = $request->input('txtnumeroParte');
     
             if ($request->hasFile('txtimagen')) {
                 $imagePath = $request->file('txtimagen')->store('images', 'public');

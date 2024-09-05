@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
     </script>
@@ -110,40 +111,34 @@
     </style>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Prodami Automatizaciones</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/paileriaPersonal') }}">Paileria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/ingenieriaPersonal') }}">Ingenieria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/oficinaPersonal') }}">Oficina Administrativa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/almacenPersonal') }}">Almacen</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search" onsubmit="event.preventDefault(); searchTable();">
-                    <input class="form-control me-2" type="search" id="searchInput" placeholder aria-label>
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
-                <div style="display: flex; justify-content: center; align-items: center;">
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button style="align-items: center" type="submit" class="btn btn-secondary"><i
-                                class="fi fi-bs-sign-out-alt"></i></button>
-                    </form>
-                </div>
-            </div>
+        <a class="navbar-brand" href="#" style="padding: 5px 10px; border-radius: 5px;">
+            <img src="\imagenes\Prodami.jpeg" style="height: 40px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/paileriaPersonal') }}">Paileria</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/ingenieriaPersonal') }}">Ingenieria</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/oficinaPersonal') }}">Oficina Administrativa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/almacenPersonal') }}">Almacen</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search" onsubmit="event.preventDefault(); searchTable();">
+                <input class="form-control me-2" type="search" id="searchInput" placeholder aria-label>
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+        </div>
+        </div>
         </div>
     </nav>
 
@@ -165,9 +160,9 @@
     <div class="container table-container" style="position: relative">
         <div class="table-responsive">
             <!-- Button trigger modal for adding new tool -->
-           
-            
-           
+
+
+
 
             <table class="table table-striped-columns" id="myTable">
                 <thead class="bg-primary text-white">
@@ -198,55 +193,59 @@
                                 </a>
                             </td>
                             <td>
-                               
 
-                       
 
-                        <div class="modal fade" id="verModal{{ $item->id }}" tabindex="-1"
-                            aria-labelledby="verModalLabel{{ $item->id }}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="verModalLabel{{ $item->id }}">
-                                            {{ $item->nombreherramienta }}</h1>
-                                        <i class="fa-solid fa-eye-low-vision"></i>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        @if ($item->imagen)
-                                            <img src="{{ asset('storage/' . $item->imagen) }}"
-                                                alt="Imagen de la herramienta" class="img-fluid img-size-fixed">
-                                        @else
-                                            <p>No hay imagen disponible para este producto.</p>
-                                        @endif
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Cerrar</button>
+
+
+                                <div class="modal fade" id="verModal{{ $item->id }}" tabindex="-1"
+                                    aria-labelledby="verModalLabel{{ $item->id }}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="verModalLabel{{ $item->id }}">
+                                                    {{ $item->nombreherramienta }}</h1>
+
+                                                <i class="fa-solid fa-eye-low-vision"></i>
+
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <h4 class="modal-title fs-5" style="margin-left: 15px"
+                                                id="verModalLabel{{ $item->numeroParte }}">
+                                                Numero de Parte: {{ $item->numeroParte }}
+                                            </h4>
+                                            <div class="modal-body">
+                                                @if ($item->imagen)
+                                                    <img src="{{ asset('storage/' . $item->imagen) }}"
+                                                        alt="Imagen de la herramienta" class="img-fluid img-size-fixed">
+                                                @else
+                                                    <p>No hay imagen disponible para este producto.</p>
+                                                @endif
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                    @endforeach
+                </tbody>
+            </table>
+            <!-- Pagination Controls -->
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <button class="page-link" id="previous-page">Anterior</button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link" id="next-page">Siguiente</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 
-                    
-        @endforeach
-        </tbody>
-        </table>
-        <!-- Pagination Controls -->
-        <nav>
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <button class="page-link" id="previous-page">Anterior</button>
-                </li>
-                <li class="page-item">
-                    <button class="page-link" id="next-page">Siguiente</button>
-                </li>
-            </ul>
-        </nav>
-    </div>
-    </div>
-   
     <style>
         .estatus-disponible {
             color: green;

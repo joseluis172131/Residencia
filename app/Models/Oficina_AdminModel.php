@@ -15,5 +15,6 @@ class Oficina_AdminModel extends Model
         'disponibilidad',
         'imagen', 
         'sub_area', 
+        'numeroParte'
     ];
 }

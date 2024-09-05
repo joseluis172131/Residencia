@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-straight/css/uicons-bold-straight.css'>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
@@ -111,8 +112,9 @@
     </style>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" style=black; padding: 5px 10px; border-radius: 5px;">
-                Prodami Automatizaciones</a>
+            <a class="navbar-brand" href="#" style="padding: 5px 10px; border-radius: 5px;">
+                <img src="\imagenes\Prodami.jpeg" style="height: 40px;">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -137,14 +139,9 @@
                     <input class="form-control me-2" type="search" id="searchInput" placeholder aria-label>
                     <button class="btn btn-outline-success" type="submit">Buscar</button>
                 </form>
-                <div style="display: flex; justify-content: center; align-items: center;">
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button style="align-items: center" type="submit" class="btn btn-secondary"><i
-                                class="fi fi-bs-sign-out-alt"></i></button>
-                    </form>
-                </div>
+
             </div>
+        </div>
         </div>
     </nav>
     <img class="animate_animated animate_zoomIn" src="imagenes\PAILERIA.jpg"
@@ -162,25 +159,36 @@
     @if (session('incorrecto'))
         <div class="alert alert-danger">{{ session('incorrecto') }}</div>
     @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="container table-container" style="position: relative">
         <div class="table-responsive">
+
             <!-- Button trigger modal for adding new tool -->
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <button class="btn btn-success btn-igualado" data-bs-toggle="modal" data-bs-target="#addModal">Añadir
                     Herramienta
                 </button>
-            
-                <form action="{{ route('infoAlmacen') }}" method="GET">
+
+                <form action="{{ route('infopaile') }}" method="GET">
                     @csrf
                     <button type="submit" class="btn btn-igualado btn-elegant">
                         <i class="fas fa-file-alt"></i> Generar Reporte
                     </button>
                 </form>
             </div>
-            
+
             <style>
                 .btn-igualado {
-                    width: 200px; /* Asegura que ambos botones tengan el mismo ancho */
+                    width: 200px;
+                    /* Asegura que ambos botones tengan el mismo ancho */
                     padding: 10px 20px;
                     text-align: center;
                     display: inline-block;
@@ -190,25 +198,27 @@
                     border-radius: 12px;
                     transition-duration: 0.4s;
                 }
-            
+
                 .btn-elegant {
-                    background-color: gray; /* Gris elegante para el botón de reporte */
+                    background-color: gray;
+                    /* Gris elegante para el botón de reporte */
                     color: black;
                     border: none;
                 }
-            
+
                 .btn-elegant:hover {
                     background-color: white;
                     color: #4CAF50;
                     border: 2px solid #4CAF50;
                 }
-            
+
                 .btn-elegant i {
-                    margin-right: 8px; /* Espacio entre el ícono y el texto */
+                    margin-right: 8px;
+                    /* Espacio entre el ícono y el texto */
                 }
             </style>
-            
-            
+
+
 
             <table class="table table-striped-columns" id="myTable">
                 <thead class="bg-primary text-white">
@@ -272,12 +282,17 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="verModalLabel{{ $item->id }}">Imagen
-                                            de la Herramienta</h1>
+                                        <h1 class="modal-title fs-5" id="verModalLabel{{ $item->id }}">
+                                            {{ $item->nombreherramienta }}</h1>
                                         <i class="fa-solid fa-eye-low-vision"></i>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
+                
                                     </div>
+                                    <h4 class="modal-title fs-5" style="margin-left: 15px"
+                                    id="verModalLabel{{ $item->numeroParte }}">
+                                    Numero de Parte: {{ $item->numeroParte }}
+                                </h4>
                                     <div class="modal-body">
                                         @if ($item->imagen)
                                             <img src="{{ asset('storage/' . $item->imagen) }}"
@@ -365,6 +380,13 @@
                                                         {{ $item->sub_area == 'Mobiliario' ? 'selected' : '' }}>
                                                         Mobiliario</option>
                                                 </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="numeroParte{{ $item->id }}" class="form-label">Numero
+                                                    de Parte</label>
+                                                <input type="text" class="form-control"
+                                                    id="numeroParte{{ $item->id }}" name="txtnumeroParte"
+                                                    value="{{ $item->numeroParte }}">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="editImagen{{ $item->id }}"
@@ -479,11 +501,15 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="addnumeroParte" class="form-label">Numero de Parte</label>
+                            <input type="text" class="form-control" id="addnumeroParte" name="txtnumeroParte">
+                        </div>
+                        <div class="mb-3">
                             <label for="addImagen" class="form-label">Imagen</label>
                             <input type="file" class="form-control" id="addImagen" name="txtimagen"
                                 accept="image/*">
                         </div>
-                        
+
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -493,6 +519,7 @@
             </div>
         </div>
     </div>
+
     <style>
         .estatus-disponible {
             color: green;

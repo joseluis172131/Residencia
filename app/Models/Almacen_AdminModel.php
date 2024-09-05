@@ -9,11 +9,12 @@ class Almacen_AdminModel extends Model
 {
     protected $table = 'almacen'; 
     protected $fillable = [
-        'Nombre',
-        'Cantidad',
+        'nombreherramienta',
+        'cantidad',
         'codigo',
         'disponibilidad',
         'imagen', 
         'sub_area', 
+        'numeroParte'
     ];
 }

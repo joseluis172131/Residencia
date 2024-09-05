@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
     </script>
@@ -97,47 +98,49 @@
         .navbar-nav .nav-link {
             transition: background-color 0.3s, color 0.3s;
         }
-    
+
         .navbar-nav .nav-link:hover {
-            background-color: #f0a70b; /* Cambia el color de fondo */
+            background-color: #f0a70b;
+            /* Cambia el color de fondo */
             color: #080808;
-            border-radius: 5px; /* Opcional: añade un borde redondeado */
-            text-decoration: underline; /* Opcional: subraya el texto */
+            border-radius: 5px;
+            /* Opcional: añade un borde redondeado */
+            text-decoration: underline;
+            /* Opcional: subraya el texto */
         }
     </style>
-    
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Prodami Automatizaciones</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/') }}">Paileria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/Ingenieria')}}">Ingenieria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/oficina') }}">Oficina Administrativa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/almacen') }}">Almacen</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search" onsubmit="event.preventDefault(); searchTable();">
-                    <input class="form-control me-2" type="search" id="searchInput" placeholder
-                        aria-label>
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
-            </div>
+        <a class="navbar-brand" href="#" style="padding: 5px 10px; border-radius: 5px;">
+            <img src="\imagenes\Prodami.jpeg" style="height: 40px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/') }}">Paileria</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/Ingenieria') }}">Ingenieria</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/oficina') }}">Oficina Administrativa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/almacen') }}">Almacen</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search" onsubmit="event.preventDefault(); searchTable();">
+                <input class="form-control me-2" type="search" id="searchInput" placeholder aria-label>
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+        </div>
         </div>
     </nav>
-    
+
     <img class="animate_animated animate_zoomIn" src="imagenes\administrativa.jpg"
         style="width: 1345px; height:500px; position: absolute; filter: brightness(45%);">
     <br><br><br><br><br><br><br><br>
@@ -153,6 +156,16 @@
     @if (session('incorrecto'))
         <div class="alert alert-danger">{{ session('incorrecto') }}</div>
     @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="container table-container" style="position: relative">
         <div class="table-responsive">
             <!-- Button trigger modal for adding new tool -->
@@ -160,7 +173,7 @@
                 <button class="btn btn-success btn-igualado" data-bs-toggle="modal" data-bs-target="#addModal">Añadir
                     Herramienta
                 </button>
-            
+
                 <form action="{{ route('infoAdministrativa') }}" method="GET">
                     @csrf
                     <button type="submit" class="btn btn-igualado btn-elegant">
@@ -168,10 +181,11 @@
                     </button>
                 </form>
             </div>
-            
+
             <style>
                 .btn-igualado {
-                    width: 200px; /* Asegura que ambos botones tengan el mismo ancho */
+                    width: 200px;
+                    /* Asegura que ambos botones tengan el mismo ancho */
                     padding: 10px 20px;
                     text-align: center;
                     display: inline-block;
@@ -181,25 +195,27 @@
                     border-radius: 12px;
                     transition-duration: 0.4s;
                 }
-            
+
                 .btn-elegant {
-                    background-color: gray; /* Gris elegante para el botón de reporte */
+                    background-color: gray;
+                    /* Gris elegante para el botón de reporte */
                     color: black;
                     border: none;
                 }
-            
+
                 .btn-elegant:hover {
                     background-color: white;
                     color: #4CAF50;
                     border: 2px solid #4CAF50;
                 }
-            
+
                 .btn-elegant i {
-                    margin-right: 8px; /* Espacio entre el ícono y el texto */
+                    margin-right: 8px;
+                    /* Espacio entre el ícono y el texto */
                 }
             </style>
 
-                <table class="table table-striped-columns" id="myTable">
+            <table class="table table-striped-columns" id="myTable">
                 <thead class="bg-primary text-white">
                     <tr>
                         <th scope="col">ID</th>
@@ -259,11 +275,16 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="verModalLabel{{ $item->id }}">{{ $item->nombreherramienta}}</h1>
+                                        <h1 class="modal-title fs-5" id="verModalLabel{{ $item->id }}">
+                                            {{ $item->nombreherramienta }}</h1>
                                         <i class="fa-solid fa-eye-low-vision"></i>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
+                                    <h4 class="modal-title fs-5" style="margin-left: 15px"
+                                        id="verModalLabel{{ $item->numeroParte }}">
+                                        Numero de Parte: {{ $item->numeroParte }}
+                                    </h4>
                                     <div class="modal-body">
                                         @if ($item->imagen)
                                             <img src="{{ asset('storage/' . $item->imagen) }}"
@@ -291,14 +312,15 @@
                                                 Modificar Datos del Producto
                                             </h1>
                                             <!-- Icono de la herramientas -->
-                                            <i class="fa-solid fa-floppy-disk" style="font-size: 24px; color: black"></i>
+                                            <i class="fa-solid fa-floppy-disk"
+                                                style="font-size: 24px; color: black"></i>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('oficina.update', ['id' => $item->id]) }}" method="POST"
-                                            enctype="multipart/form-data">
+                                        <form action="{{ route('oficina.update', ['id' => $item->id]) }}"
+                                            method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
                                             <!-- Esto le indica a Laravel que trate la solicitud como PUT -->
@@ -338,78 +360,86 @@
                                                     name="txtsubarea" required>
                                                     <option value="Equipo de Computo"
                                                         {{ $item->sub_area == 'Equipo de Computo' ? 'selected' : '' }}>
-                                                   Equipo de Computo </option>
-                                                        <option value="Mobiliario"
+                                                        Equipo de Computo </option>
+                                                    <option value="Mobiliario"
                                                         {{ $item->sub_area == 'Mobiliario' ? 'selected' : '' }}>
                                                         Mobiliario</option>
                                                     <option value="Papeleria"
                                                         {{ $item->sub_area == 'Papeleria' ? 'selected' : '' }}>
                                                         Papeleria</option>
-                                                    
+
                                                 </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="numeroParte{{ $item->id }}" class="form-label">Numero
+                                                    de Parte</label>
+                                                <input type="text" class="form-control"
+                                                    id="numeroParte{{ $item->id }}" name="txtnumeroParte"
+                                                    value="{{ $item->numeroParte }}">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="editImagen{{ $item->id }}"
                                                     class="form-label">Imagen</label>
                                                 <input type="file" class="form-control"
                                                     id="txtimagen{{ $item->id }}" name="txtimagen">
-                                                    <input type="hidden" name="existingImage" value="{{ $item->imagen }}">
-                                                </div>
-                                                </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Cerrar</button>
-                                                <button type="submit" class="btn btn-primary">Modificar</button>
+                                                <input type="hidden" name="existingImage"
+                                                    value="{{ $item->imagen }}">
                                             </div>
-                                        </form>
                                     </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary">Modificar</button>
+                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Delete Modal -->
-                        <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1"
-                            aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="d-flex justify-content-between w-100 align-items-center">
-                                            <h1 class="modal-title fs-5" id="deleteModalLabel{{ $item->id }}">
-                                                Eliminar Equipo</h1>
-                                            <i class="fa-solid fa-delete-left" style="font-size: 24px; color: black"></i>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>¿Estás seguro de que deseas eliminar este equipo?</p>
-                                        <form action="{{ route('Oficina.destroy', $item->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancelar</button>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </tbody>
-            </table>
-            <!-- Pagination Controls -->
-            <nav>
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <button class="page-link" id="previous-page">Anterior</button>
-                    </li>
-                    <li class="page-item">
-                        <button class="page-link" id="next-page">Siguiente</button>
-                    </li>
-                </ul>
-            </nav>
         </div>
+
+        <!-- Delete Modal -->
+        <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1"
+            aria-labelledby="deleteModalLabel{{ $item->id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="d-flex justify-content-between w-100 align-items-center">
+                            <h1 class="modal-title fs-5" id="deleteModalLabel{{ $item->id }}">
+                                Eliminar Equipo</h1>
+                            <i class="fa-solid fa-delete-left" style="font-size: 24px; color: black"></i>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás seguro de que deseas eliminar este equipo?</p>
+                        <form action="{{ route('Oficina.destroy', $item->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Cancelar</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        </tbody>
+        </table>
+        <!-- Pagination Controls -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <button class="page-link" id="previous-page">Anterior</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link" id="next-page">Siguiente</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
     </div>
     <!-- Add Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -456,6 +486,10 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="addnumeroParte" class="form-label">Numero de Parte</label>
+                            <input type="text" class="form-control" id="addnumeroParte" name="txtnumeroParte">
+                        </div>
+                        <div class="mb-3">
                             <label for="addImagen" class="form-label">Imagen</label>
                             <input type="file" class="form-control" id="addImagen" name="txtimagen"
                                 accept="image/*">
@@ -471,36 +505,36 @@
     </div>
     <style>
         .estatus-disponible {
-       color: green;
-   }
-   .estatus-ocupado {
-       color: red;
-   }
-   </style>
-   <script>
-       document.addEventListener("DOMContentLoaded", function () {
-   const estatusInput = document.getElementById("addEstatus");
+            color: green;
+        }
 
-   if (estatusInput) {
-       estatusInput.addEventListener("input", function () {
-           const value = estatusInput.value.toLowerCase().trim();
+        .estatus-ocupado {
+            color: red;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const estatusInput = document.getElementById("addEstatus");
 
-           // Remover las clases de color existentes
-           estatusInput.classList.remove("estatus-disponible", "estatus-ocupado");
+            if (estatusInput) {
+                estatusInput.addEventListener("input", function() {
+                    const value = estatusInput.value.toLowerCase().trim();
 
-           // Agregar la clase de color adecuada
-           if (value.includes("disponible")) {
-               estatusInput.classList.add("estatus-disponible");
-           } else if (value.includes("ocupado")) {
-               estatusInput.classList.add("estatus-ocupado");
-           }
-       });
-   } else {
-       console.error("No se encontró el campo de estatus con ID 'addEstatus'.");
-   }
-});
+                    // Remover las clases de color existentes
+                    estatusInput.classList.remove("estatus-disponible", "estatus-ocupado");
 
-   </script>
+                    // Agregar la clase de color adecuada
+                    if (value.includes("disponible")) {
+                        estatusInput.classList.add("estatus-disponible");
+                    } else if (value.includes("ocupado")) {
+                        estatusInput.classList.add("estatus-ocupado");
+                    }
+                });
+            } else {
+                console.error("No se encontró el campo de estatus con ID 'addEstatus'.");
+            }
+        });
+    </script>
 
 
     <script>

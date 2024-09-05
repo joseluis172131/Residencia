@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
     </script>
@@ -111,34 +112,34 @@
     </style>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Prodami Automatizaciones</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/paileriaPersonal') }}">Paileria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/ingenieriaPersonal') }}">Ingenieria</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/oficinaPersonal') }}">Oficina Administrativa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('almacenPersonal') }}">Almacen</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search" onsubmit="event.preventDefault(); searchTable();">
-                    <input class="form-control me-2" type="search" id="searchInput" placeholder aria-label>
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
-                </form>
+        <a class="navbar-brand" href="#" style="padding: 5px 10px; border-radius: 5px;">
+            <img src="\imagenes\Prodami.jpeg" style="height: 40px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/paileriaPersonal') }}">Paileria</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/ingenieriaPersonal') }}">Ingenieria</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/oficinaPersonal') }}">Oficina Administrativa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('almacenPersonal') }}">Almacen</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search" onsubmit="event.preventDefault(); searchTable();">
+                <input class="form-control me-2" type="search" id="searchInput" placeholder aria-label>
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
 
-                
+
     </nav>
 
     <img class="animate_animated animate_zoomIn" src="imagenes\administrativa.jpg"
@@ -212,6 +213,10 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
+                                    <h4 class="modal-title fs-5" style="margin-left: 15px"
+                                        id="verModalLabel{{ $item->numeroParte }}">
+                                        Numero de Parte: {{ $item->numeroParte }}
+                                    </h4>
                                     <div class="modal-body">
                                         @if ($item->imagen)
                                             <img src="{{ asset('storage/' . $item->imagen) }}"

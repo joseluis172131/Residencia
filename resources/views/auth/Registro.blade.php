@@ -8,7 +8,7 @@
         /* Estilos similares al formulario de login */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #001f3f;
+            background: linear-gradient(135deg, #001f3f, #0056b3);
             display: flex;
             justify-content: center;
             align-items: center;

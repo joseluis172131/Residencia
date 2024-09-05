@@ -25,18 +25,22 @@ class Oficina_AdminController extends Controller
         $request->validate([
             'txtnombre' => 'required|string|max:255',
             'txtcantidad' => 'required|integer',
-            'txtcodigo' => 'required|string|max:255',
+            'txtcodigo' => 'required|string|max:255|unique:oficina_administrativa,codigo',
             'txtestatus' => 'required|string|max:255',
             'txtsubarea' => 'required|string|max:255',
+            'txtnumeroParte' => 'nullable|string|max:50',
             'txtimagen' => 'nullable|image|max:2048' 
+        ], [
+            'txtcodigo.unique' => 'El código ya existe por favor, ingrese un código diferente.'
         ]);
 
         $oficina = new Oficina_AdminModel([
-            'nombre' => $request->txtnombre,
+            'nombreherramienta' => $request->txtnombre,
             'cantidad' => $request->txtcantidad,
             'codigo' => $request->txtcodigo,
             'disponibilidad'=> $request->txtestatus,
             'sub_area' => $request->txtsubarea,
+            'numeroParte' => $request->input('txtnumeroParte'),
             'imagen' => $request->hasFile('txtimagen') ? $request->file('txtimagen')->store('images') : null, // Manejo de archivo si es necesario
         ]);
 
@@ -46,11 +50,10 @@ class Oficina_AdminController extends Controller
         }
 
 
-        if ($oficina->save()) {
-            return back()->with('correcto', 'Producto registrado correctamente');
-        } else {
-            return back()->with('incorrecto', 'Error al registrar');
-        }
+        $oficina->save();
+    
+        // Retornar con un mensaje de éxito
+        return back()->with('correcto', 'Producto registrado correctamente');
     }
 
 
@@ -89,6 +92,7 @@ class Oficina_AdminController extends Controller
             'txtcodigo' => 'required|string|max:255',
             'txtestatus' => 'required|string|max:255',
             'txtsubarea' => 'required|string|max:255',
+            'txtnumeroParte' => 'nullable|string|max:50',
             'txtimagen' => 'nullable|image|max:2048'
         ]);
     
@@ -100,6 +104,7 @@ class Oficina_AdminController extends Controller
             $oficina->codigo = $request->input('txtcodigo');
             $oficina->disponibilidad = $request->input('txtestatus');
             $oficina->sub_area = $request->input('txtsubarea');
+            $oficina->numeroParte = $request->input('txtnumeroParte');
     
             // Comprobar si se subió una nueva imagen
             if ($request->hasFile('txtimagen')) {

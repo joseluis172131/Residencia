@@ -13,8 +13,9 @@ class Herramienta extends Model
         'nombreherramienta',
         'cantidad',
         'codigo',
+        'disponibilidad',
+        'imagen',
         'sub_area',
-        'disponibilidad',  
-        'imagen',   
+        'numeroParte' 
     ];
 }
