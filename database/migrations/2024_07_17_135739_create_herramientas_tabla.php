@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('herramientas_tabla', function (Blueprint $table) {
+        Schema::create('paileria', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('nombreherramienta', 100);
             $table->integer('cantidad');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('herramientas_tabla');
+        Schema::dropIfExists('paileria');
     }
 };

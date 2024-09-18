@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('oficina_administrativa', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('Nombre');
-            $table->integer('Cantidad');
+            $table->string('nombreherramienta');
+            $table->integer('cantidad');
             $table->string('codigo', 20);
             $table->string('disponibilidad',20);
             $table->string('imagen')->nullable();
